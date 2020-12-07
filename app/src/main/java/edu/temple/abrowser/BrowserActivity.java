@@ -101,20 +101,20 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         }
 
 
-        Intent intent = getIntent();
 
-        if(Objects.equals(intent.getType(), "text/plain")){
-            String url = intent.getStringExtra(Intent.EXTRA_TEXT);
-            Log.println(Log.ASSERT, "log", url);
-
-            go(url);
-        }
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        Intent intent = getIntent();
+        if(Objects.equals(intent.getType(), "text/plain")){
+            String url = intent.getStringExtra(Intent.EXTRA_TEXT);
+            Log.println(Log.ASSERT, "log", url);
+            go(url);
+        }
     }
 
     /**
@@ -259,5 +259,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         // Open URL selected from Bookmark
         if (requestCode == BOOKMARKS_REQUEST_CODE && resultCode == RESULT_OK && data != null)
             go(((Bookmark) data.getSerializableExtra(BookmarksActivity.BOOKMARK_KEY)).getUrl());
+
+
     }
 }
