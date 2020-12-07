@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import edu.temple.abrowser.bookmarks.Bookmark;
 import edu.temple.abrowser.bookmarks.BookmarkList;
@@ -97,6 +100,16 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             }
         }
 
+
+        Intent intent = getIntent();
+
+        if(Objects.equals(intent.getType(), "text/plain")){
+            String url = intent.getStringExtra(Intent.EXTRA_TEXT);
+            Log.println(Log.ASSERT, "log", url);
+
+            go(url);
+        }
+
     }
 
     @Override
@@ -126,6 +139,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
         // Save list of open pages for activity restart
         outState.putSerializable(PAGES_KEY, pages);
+
     }
 
     /**
